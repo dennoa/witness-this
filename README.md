@@ -1,3 +1,3 @@
-# my-stuff
+# Witness This
 
-Seed project for MEAN stack applications.
+Ethereum Smart Contract POC.
