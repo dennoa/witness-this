@@ -1,0 +1,41 @@
+<div class="container-fluid home-section">
+  <div class="panel panel-default">
+    <div class="panel-heading">Validate This</div>
+    <div class="panel-body">
+	  <p>To verify a particular item, we can compare its current hash against the one we have stored (outside of the blockchain). 
+	  We verify that our stored data is correct by recalculating the hash for the entire document set and comparing it with the value previously recorded on the blockchain.</p>
+	  <p>If using Proof of Existence, we can:
+	    <ol>
+		  <li>Pass the hash for a file to the https://www.proofofexistence.com/api/v1/register API.
+		  This returns a payment address where we need to send the bitcoins required to have the hash stored in the blockchain</li>
+		  <li>Make the payment using whatever bitcoin wallet we like</li>
+		  <li>Subsequently verify a file later on by passing its hash to the https://www.proofofexistence.com/api/v1/status API.
+		  This indicates whether the hash was found plus transaction information including the date / time it was added to the blockchain.</li>
+	    </ol>
+	  </p>
+      <p>It takes some time for transactions to be accepted as part of the blockchain so you may need to wait a bit before validating your files.</p>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="btn btn-primary" ngf-select="uploadFiles($files)" multiple="multiple">Select files to be validated</div>
+        </div>
+        <div class="col-sm-9">
+          <div class="progress">
+            <div class="progress-bar" style="{{progressWidth}}">{{progress}}%</div>
+          </div>
+        </div>
+       </div>
+	  <div ng-show="isWaitingForServer"><i class="fa fa-spinner fa-pulse fa-3x"></i></div>
+      <div ng-show="data.results.length > 0">
+		<table class="table">
+		<tr><th>File</th><th>Is Valid</th><th>Originally Uploaded</th><th>Hash</th></tr>
+        <tr ng-repeat="result in data.results track by $index" ng-class="{'text-danger':!result.isValid, 'text-success':result.isValid}">
+			<td>{{result.name}}</td>
+			<td><span ng-show="result.isValid">Yes</span><span ng-show="!result.isValid">No</span></td>
+			<td>{{result.timestamp | date:'dd-MM-yyyy hh:mm:ss'}}</td>
+			<td>{{result.hash}}</td>
+        </tr>
+		</table>
+      </div>
+    </div>
+  </div>
+</div>

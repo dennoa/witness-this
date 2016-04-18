@@ -1,0 +1,38 @@
+<div class="container-fluid home-section">
+  <div class="panel panel-default">
+    <div class="panel-heading">Witness This</div>
+    <div class="panel-body">
+      <p>At a high-level, we generate a hash from the file contents and store that information in a blockchain-style distributed ledger (e.g. Bitcoin or Ethereum).
+      We can subsequently use the hash to verify that a file is unchanged from its original state.</p>
+      <p>There are many services to do this on the Bitcoin blockchain. An open source implementation (in Python) is <a href="https://www.proofofexistence.com">https://www.proofofexistence.com</a>,
+      source code is here: <a href="https://github.com/maraoz/proofofexistence">https://github.com/maraoz/proofofexistence</a>.</p>
+	  <p>There are other services that offer something similar: <a href="http://stampd.io/">http://stampd.io/</a>, <a href="https://blocksign.com/">https://blocksign.com/</a>,  
+	  <a href="http://factom.org/">http://factom.org/</a>, <a href="https://bitproof.io/">https://bitproof.io/</a>,  <a href="https://stampery.com/">https://stampery.com/</a>, <a href="https://www.ascribe.io/">https://www.ascribe.io/</a>.</p>
+      <p>Ethereum is designed as a more generalised blockchain supporting smart contracts which is more suitable than Bitcoin for this kind of thing.</p>
+      <div class="row">
+        <div class="col-sm-3">
+			<div class="btn btn-primary" ngf-select="uploadFiles($files)" multiple="multiple">Select files to be witnessed</div>
+        </div>
+        <div class="col-sm-9">
+          <div class="progress">
+            <div class="progress-bar" style="{{progressWidth}}">{{progress}}%</div>
+          </div>
+        </div>
+      </div>
+	  <div ng-show="isWaitingForServer"><i class="fa fa-spinner fa-pulse fa-3x"></i></div>
+      <div ng-show="data.results.length > 0">
+        <p>Each uploaded file was individually hashed and time-stamped.</p>
+		<table class="table">
+		<tr><th>File</th><th>Uploaded</th><th>Hash</th></tr>
+        <tr ng-repeat="result in data.results track by $index">
+			<td>{{result.name}}</td>
+			<td>{{result.timestamp | date:'dd-MM-yyyy hh:mm:ss'}}</td>
+			<td>{{result.hash}}</td>
+        </tr>
+		</table>
+        <p>The individual hashes and timestamps were combined and re-hashed into a single key ({{data.hash}}) that identifies the entire group. This single key can be used to quickly identify if anything in the entire set does not match,
+        so we can store details of the individual items outside of the blockchain and verify they still match the blockchain transaction by comparing this single key.</p>
+      </div>
+    </div>
+  </div>
+</div>

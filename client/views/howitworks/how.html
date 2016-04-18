@@ -1,0 +1,38 @@
+<div class="container-fluid home-section">
+  <div class="panel panel-default">
+    <div class="panel-heading">How it Works in General</div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-10">
+          <ul>
+            <li>Ethereum is a P2P network and we need to run an Ethereum node to join in.</li>
+            <li>We run a full node that stores the entire blockchain locally and constantly synchronises with other peers. Light client support is not there yet.</i>
+            <li>We are identified on the network by our Ethereum addresses. We give our node permission to send messages from our address and spend our Ether.</li>
+            <li>The Ethereum node validates your address and password against a keystore before allowing the transaction to continue.</li>
+            <li>We interact with our node over HTTP via its API. No SSL support so interactions are local. We run a web server alongside the Ethereum node to accept remote requests.</i>
+            <li>We minimise data storage on the blockchain by only storing a hash reference that can be used to verify the data integrity. The actual data is stored elsewhere.</i>
+          </ul>
+        </div>
+        <div class="col-md-2 text-right">
+          <img src="assets/images/p2p.png" width="200"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Specifically for this POC</div>
+    <div class="panel-body">
+      <ol>
+        <li>Upload a set of documents to a web server (NodeJS).</li>
+        <li>Create hash representations of each documents content (sha256).</li>
+        <li>Combine document hashes and timestamps for each document in the set and hash the combined data.</li>
+        <li>Save the data to our own database (not the actual files, just the identifying data).</li>
+        <li>Record the combined hash on the blockchain (Ethereum Smart Contract). This updates blockchain data so is slow and costs Ether. (The update needs to be accepted by the other nodes).</li>
+        <li>Later on when we want to verify a document, we upload the current version.</li>
+        <li>We retrieve the relevant set of document information from our own database and recalculate the combined hash.</li>
+        <li>We verify the combined hash against the blockchain (Ethereum Smart Contract). This reads data from the local blockchain so is fast and doesn't cost any Ether.</li> 
+        <li>If the integrity of the data set remains intact, we verify the current file hash against the one previously stored in our own database.</li>
+      </ol>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+/* Bootstrap */
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+/* Font Awesome */
+$fa-font-path: "../../assets/fonts";
+@import "../../node_modules/font-awesome/scss/font-awesome";
+
+/* App-wide styles go here */
+$image-path: "../../assets/images";
+
+/* Component styles are injected */
+/* inject:scss */
+@import "../views/home/home.scss";
+@import "../views/howitworks/how.scss";
+@import "../views/validate/validate.scss";
+/* endinject */
